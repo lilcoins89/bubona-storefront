@@ -28,8 +28,9 @@ export default function EmailCapture() {
   }
 
   return (
-    <form onSubmit={submit} className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
+    <form onSubmit={submit} suppressHydrationWarning className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
       <input
+        suppressHydrationWarning
         type="email"
         required
         placeholder="Email for drop alerts"
