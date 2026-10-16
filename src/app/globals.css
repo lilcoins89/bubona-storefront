@@ -1,18 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --teal: #14b8a6;
-  --cyan: #06b6d4;
-  --dark: #0f172a;
+  --background: #f4f6f4;
+  --foreground: #102022;
+  --surface: #ffffff;
+  --surface-muted: #e8f0ee;
+  --line: #d7e0dd;
+  --teal: #13b8b2;
+  --teal-deep: #087f80;
+  --ink: #102022;
+  --muted: #667876;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-line: var(--line);
   --color-teal: var(--teal);
-  --color-cyan: var(--cyan);
+  --color-teal-deep: var(--teal-deep);
+  --color-muted: var(--muted);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -22,6 +30,12 @@ body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--teal);
+  color: var(--ink);
 }
 
 .metallic-teal {

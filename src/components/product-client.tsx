@@ -1,0 +1,115 @@
+"use client";
+
+import { notFound } from "next/navigation";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+
+
+const products: Record<string, any> = {
+  "classic-tee": { name: "Classic Tee", price: 48, colors: ["Off White", "Black", "Sand"], sizes: ["S", "M", "L", "XL"], desc: "Signature B logo on premium cotton. Built Different. Bigger dreams. Higher standards.", image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/17401996-909B-4465-8551-D7C2F654EAA0-KiLgR9LadJFw3sThwq61lq7VbfbozN.png" },
+  "oversized": { name: "Oversized Fit", price: 52, colors: ["Black", "Charcoal"], sizes: ["S", "M", "L", "XL"], desc: "Relaxed oversized fit. Large back print.", image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3299E1E3-117F-48D7-84DD-3E5235D731A7-uQCKoy401VUPaERSJNOdiXK1rUEn7m.png" },
+  "metallic-dress": { name: "Metallic Dress", price: 128, colors: ["Teal"], sizes: ["XS", "S", "M", "L"], desc: "Shiny metallic teal fabric with raised glass-like logo. Statement piece.", image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_0514-K1psSWjHGe0XqRXEt3bcSG6c7Cxt8f.jpeg" },
+  "sculpt": { name: "Sculpt Collection", price: 98, colors: ["Black", "Teal"], sizes: ["S", "M", "L"], desc: "Modest activewear. Embroidered logo, functional pockets, premium stretch.", image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/33B6F54A-5201-41D1-9B97-A4327A7C019E-7u6DE7tHuuY2kgnZPqZixZrmPbdjKx.png" },
+};
+
+function safeGetCart(): any[] {
+  try {
+    const raw = localStorage.getItem("bubona-cart");
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+function safeSetCart(cart: any[]) {
+  try {
+    localStorage.setItem("bubona-cart", JSON.stringify(cart));
+  } catch {
+    console.error("Failed to save cart");
+  }
+}
+
+export default function Product({ id }: { id: string }) {
+  const product = products[id];
+  if (!product) notFound();
+
+  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
+  const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
+  const [cartCount, setCartCount] = useState(0);
+  const [added, setAdded] = useState(false);
+
+  useEffect(() => {
+    setCartCount(safeGetCart().length);
+  }, []);
+
+  const addToCart = () => {
+    const cart = safeGetCart();
+    cart.push({ id, name: product.name, price: product.price, color: selectedColor, size: selectedSize });
+    safeSetCart(cart);
+    setCartCount(cart.length);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  };
+
+  return (
+    <main className="max-w-4xl mx-auto px-4 py-12">
+      <div className="grid md:grid-cols-2 gap-10">
+        <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem] bg-surface-muted">
+          <Image src={product.image} alt={product.name} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" priority />
+        </div>
+        <div>
+          <h1 className="text-4xl font-bold">{product.name}</h1>
+          <p className="text-3xl font-semibold mt-4">${product.price}</p>
+          <p className="mt-6 text-slate-600">{product.desc}</p>
+
+          <div className="mt-6">
+            <p className="font-medium mb-2">Color</p>
+            <div className="flex gap-2">
+              {product.colors.map((c: string) => (
+                <button
+                  key={c}
+                  onClick={() => setSelectedColor(c)}
+                  className={`px-4 py-2 border rounded-full text-sm ${selectedColor === c ? "bg-teal-600 text-white border-teal-600" : "hover:bg-teal-50"}`}
+                >
+                  {c}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-4">
+            <p className="font-medium mb-2">Size</p>
+            <div className="flex gap-2">
+              {product.sizes.map((s: string) => (
+                <button
+                  key={s}
+                  onClick={() => setSelectedSize(s)}
+                  className={`w-12 h-12 border rounded-lg text-sm font-medium ${selectedSize === s ? "bg-slate-900 text-white border-slate-900" : "hover:bg-slate-100"}`}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <button
+            onClick={addToCart}
+            className="mt-8 w-full bg-slate-900 text-white py-4 rounded-lg font-medium hover:bg-slate-800"
+          >
+            {added ? "Added to Cart!" : `Add to Cart — $${product.price}`}
+          </button>
+
+          <div className="mt-4 flex flex-wrap gap-3 text-xs">
+            <span className="bg-slate-100 px-3 py-1 rounded-full">Pay with Solana Pay (USDC)</span>
+            <span className="bg-teal-50 text-teal-700 px-3 py-1 rounded-full">Holder discount coming soon</span>
+          </div>
+
+          <p className="text-xs text-slate-400 mt-3 text-center">
+            Cart: {cartCount} item{cartCount !== 1 ? "s" : ""} • <Link href="/size-guide" className="underline">Size guide</Link>
+          </p>
+        </div>
+      </div>
+    </main>
+  );
+}

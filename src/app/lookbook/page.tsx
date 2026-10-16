@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Lookbook() {
   return (
     <main className="max-w-6xl mx-auto px-4 py-12">
@@ -12,7 +14,7 @@ export default function Lookbook() {
         ].map((item) => (
           <div key={item.title} className="border rounded-2xl overflow-hidden">
             <div className="aspect-[4/5] bg-slate-100 overflow-hidden">
-              <img src={item.image} alt={item.title} className="size-full object-cover" />
+              <Image src={item.image} alt={item.title} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
             </div>
             <div className="p-5">
               <h2 className="text-xl font-semibold">{item.title}</h2>
