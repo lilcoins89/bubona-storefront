@@ -5,10 +5,10 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 
 const products: Record<string, any> = {
-  "classic-tee": { name: "Classic Tee", price: 48, colors: ["Off White", "Black", "Sand"], sizes: ["S", "M", "L", "XL"], desc: "Signature B logo on premium cotton. Built Different. Bigger dreams. Higher standards.", image: "/products/classic-tee.jpg" },
-  "oversized": { name: "Oversized Fit", price: 52, colors: ["Black", "Charcoal"], sizes: ["S", "M", "L", "XL"], desc: "Relaxed oversized fit. Large back print.", image: "/products/oversized.jpg" },
-  "metallic-dress": { name: "Metallic Dress", price: 128, colors: ["Teal"], sizes: ["XS", "S", "M", "L"], desc: "Shiny metallic teal fabric with raised glass-like logo. Statement piece.", image: "/products/metallic-dress.jpg" },
-  "sculpt": { name: "Sculpt Collection", price: 98, colors: ["Black", "Teal"], sizes: ["S", "M", "L"], desc: "Modest activewear. Embroidered logo, functional pockets, premium stretch.", image: "/products/sculpt.jpg" },
+  "classic-tee": { name: "Classic Tee", price: 48, colors: ["Off White", "Black", "Sand"], sizes: ["S", "M", "L", "XL"], desc: "Signature B logo on premium cotton. Built Different. Bigger dreams. Higher standards.", image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/17401996-909B-4465-8551-D7C2F654EAA0-KiLgR9LadJFw3sThwq61lq7VbfbozN.png" },
+  "oversized": { name: "Oversized Fit", price: 52, colors: ["Black", "Charcoal"], sizes: ["S", "M", "L", "XL"], desc: "Relaxed oversized fit. Large back print.", image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3299E1E3-117F-48D7-84DD-3E5235D731A7-uQCKoy401VUPaERSJNOdiXK1rUEn7m.png" },
+  "metallic-dress": { name: "Metallic Dress", price: 128, colors: ["Teal"], sizes: ["XS", "S", "M", "L"], desc: "Shiny metallic teal fabric with raised glass-like logo. Statement piece.", image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_0514-K1psSWjHGe0XqRXEt3bcSG6c7Cxt8f.jpeg" },
+  "sculpt": { name: "Sculpt Collection", price: 98, colors: ["Black", "Teal"], sizes: ["S", "M", "L"], desc: "Modest activewear. Embroidered logo, functional pockets, premium stretch.", image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/33B6F54A-5201-41D1-9B97-A4327A7C019E-7u6DE7tHuuY2kgnZPqZixZrmPbdjKx.png" },
 };
 
 function safeGetCart(): any[] {
