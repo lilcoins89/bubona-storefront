@@ -11,6 +11,23 @@ const products: Record<string, any> = {
   "sculpt": { name: "Sculpt Collection", price: 98, colors: ["Black", "Teal"], sizes: ["S", "M", "L"], desc: "Modest activewear. Embroidered logo, functional pockets, premium stretch.", image: "/products/sculpt.jpg" },
 };
 
+function safeGetCart(): any[] {
+  try {
+    const raw = localStorage.getItem("bubona-cart");
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+function safeSetCart(cart: any[]) {
+  try {
+    localStorage.setItem("bubona-cart", JSON.stringify(cart));
+  } catch {
+    console.error("Failed to save cart");
+  }
+}
+
 export default function Product({ params }: { params: { id: string } }) {
   const product = products[params.id];
   if (!product) notFound();
@@ -21,14 +38,13 @@ export default function Product({ params }: { params: { id: string } }) {
   const [added, setAdded] = useState(false);
 
   useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem("bubona-cart") || "[]");
-    setCartCount(cart.length);
+    setCartCount(safeGetCart().length);
   }, []);
 
   const addToCart = () => {
-    const cart = JSON.parse(localStorage.getItem("bubona-cart") || "[]");
+    const cart = safeGetCart();
     cart.push({ id: params.id, name: product.name, price: product.price, color: selectedColor, size: selectedSize });
-    localStorage.setItem("bubona-cart", JSON.stringify(cart));
+    safeSetCart(cart);
     setCartCount(cart.length);
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
