@@ -5,14 +5,20 @@ import { useState } from "react";
 export default function EmailCapture() {
   const [email, setEmail] = useState("");
   const [done, setDone] = useState(false);
+  const [error, setError] = useState("");
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
     if (!email) return;
-    const list = JSON.parse(localStorage.getItem("bubona-emails") || "[]");
-    list.push(email);
-    localStorage.setItem("bubona-emails", JSON.stringify(list));
-    setDone(true);
+    try {
+      const list = JSON.parse(localStorage.getItem("bubona-emails") || "[]");
+      list.push(email);
+      localStorage.setItem("bubona-emails", JSON.stringify(list));
+      setDone(true);
+    } catch {
+      setError("Could not save. Please try again.");
+    }
   };
 
   if (done) {
@@ -32,6 +38,7 @@ export default function EmailCapture() {
       <button type="submit" className="bg-slate-900 text-white px-6 py-3 rounded-lg text-sm font-medium hover:bg-slate-800">
         Notify Me
       </button>
+      {error && <p className="text-red-500 text-xs w-full mt-1">{error}</p>}
     </form>
   );
 }
