@@ -54,6 +54,7 @@ export default function RootLayout({
             </a>
             <nav className="space-x-6 text-sm font-medium">
               <a href="/shop" className="hover:text-teal-600">Shop</a>
+              <a href="/cart" className="hover:text-teal-600">Cart</a>
               <a href="/about" className="hover:text-teal-600">About</a>
               <a href="/token" className="hover:text-teal-600">Token</a>
             </nav>
