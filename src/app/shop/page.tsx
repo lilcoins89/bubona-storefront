@@ -11,22 +11,22 @@ export default function Shop() {
   return (
     <main className="max-w-7xl mx-auto px-4 py-12">
       <h1 className="text-4xl font-bold mb-2">Shop</h1>
-      <p className="text-slate-600 mb-10">All pieces. Colors available as shown.</p>
+      <p className="text-slate-600 mb-10">All pieces. Multiple colors and sizes available.</p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {products.map((p) => (
-          <Link key={p.id} href={`/product/${p.id}`} className="border rounded-xl overflow-hidden hover:shadow-lg transition">
-            <div className="aspect-[4/5] bg-gradient-to-br from-cyan-100 to-teal-200 flex items-center justify-center">
-              <span className="text-4xl font-black text-teal-600/30">B</span>
+          <Link key={p.id} href={`/product/${p.id}`} className="border rounded-xl overflow-hidden hover:shadow-lg transition group">
+            <div className="aspect-[4/5] bg-gradient-to-br from-cyan-100 to-teal-200 flex items-center justify-center relative">
+              <span className="text-6xl font-black text-teal-600/20 group-hover:scale-105 transition">B</span>
             </div>
             <div className="p-5">
               <h2 className="text-xl font-semibold">{p.name}</h2>
               <p className="text-sm text-slate-500 mt-1">{p.description}</p>
-              <div className="flex gap-2 mt-3">
+              <div className="flex gap-2 mt-3 flex-wrap">
                 {p.colors.map((c) => (
                   <span key={c} className="text-xs bg-slate-100 px-2 py-1 rounded">{c}</span>
                 ))}
               </div>
-              <p className="mt-4 font-bold">${p.price}</p>
+              <p className="mt-4 font-bold text-lg">${p.price}</p>
             </div>
           </Link>
         ))}
