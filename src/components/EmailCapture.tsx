@@ -7,17 +7,19 @@ export default function EmailCapture() {
   const [done, setDone] = useState(false);
   const [error, setError] = useState("");
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     if (!email) return;
-    try {
-      const list = JSON.parse(localStorage.getItem("bubona-emails") || "[]");
-      list.push(email);
-      localStorage.setItem("bubona-emails", JSON.stringify(list));
-      setDone(true);
-    } catch {
-      setError("Could not save. Please try again.");
+    const response = await fetch("/api/newsletter", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+    if (response.ok) setDone(true);
+    else {
+      const result = await response.json().catch(() => null);
+      setError(result?.error ?? "Could not save. Please try again.");
     }
   };
 
