@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import CartBadge from "@/components/CartBadge";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -52,9 +53,10 @@ export default function RootLayout({
             <a href="/" className="text-2xl font-bold tracking-tight text-teal-600">
               BUBONA
             </a>
-            <nav className="space-x-6 text-sm font-medium">
+            <nav className="flex items-center space-x-6 text-sm font-medium">
               <a href="/shop" className="hover:text-teal-600">Shop</a>
-              <a href="/cart" className="hover:text-teal-600">Cart</a>
+              <CartBadge />
+              <a href="/lookbook" className="hover:text-teal-600">Lookbook</a>
               <a href="/about" className="hover:text-teal-600">About</a>
               <a href="/token" className="hover:text-teal-600">Token</a>
             </nav>
@@ -62,7 +64,7 @@ export default function RootLayout({
         </header>
         {children}
         <footer className="border-t mt-16 py-8 text-center text-sm text-slate-500">
-          © 2026 Bubona. Funded on Solana. Powered by Shopify + Solana Pay.
+          © 2026 Bubona. Funded on Solana. Powered by Shopify + Solana Pay. · <a href="/policies" className="underline">Policies</a>
         </footer>
         <script
           dangerouslySetInnerHTML={{
