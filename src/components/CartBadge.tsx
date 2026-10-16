@@ -3,17 +3,25 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
+function safeGetCart(): any[] {
+  try {
+    const raw = localStorage.getItem("bubona-cart");
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
 export default function CartBadge() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     const update = () => {
-      const cart = JSON.parse(localStorage.getItem("bubona-cart") || "[]");
-      setCount(cart.length);
+      setCount(safeGetCart().length);
     };
     update();
     window.addEventListener("storage", update);
-    const interval = setInterval(update, 1000);
+    const interval = setInterval(update, 1500);
     return () => {
       window.removeEventListener("storage", update);
       clearInterval(interval);
