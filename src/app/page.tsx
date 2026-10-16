@@ -1,4 +1,5 @@
 import Link from "next/link";
+import EmailCapture from "@/components/EmailCapture";
 
 export default function Home() {
   return (
@@ -19,9 +20,15 @@ export default function Home() {
             </Link>
             <Link href="/about" className="border border-slate-300 px-8 py-4 rounded font-medium hover:bg-white">
               EXPLORE THE STORY
-            </Link>
+          </Link>
           </div>
         </div>
+      </section>
+
+      {/* Solana Pay Badge */}
+      <section className="py-8 px-4 bg-slate-900 text-white text-center">
+        <p className="text-sm tracking-widest text-teal-400">PAY WITH SOLANA PAY</p>
+        <p className="mt-2 text-lg">Checkout in USDC. Instant. Low fees. Built for crypto buyers.</p>
       </section>
 
       {/* Featured Products */}
@@ -45,6 +52,15 @@ export default function Home() {
               <p className="font-semibold mt-1">{p.price}</p>
             </Link>
           ))}
+        </div>
+      </section>
+
+      {/* Email Capture */}
+      <section className="py-16 px-4 bg-white border-t">
+        <div className="max-w-xl mx-auto text-center">
+          <h2 className="text-2xl font-bold mb-2">Get drop alerts</h2>
+          <p className="text-slate-500 mb-6 text-sm">Be first to know when new pieces and limited colorways drop.</p>
+          <EmailCapture />
         </div>
       </section>
     </main>
