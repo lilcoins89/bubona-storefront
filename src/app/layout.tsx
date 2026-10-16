@@ -48,18 +48,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50 text-slate-900`}
       >
-        <header className="border-b bg-white sticky top-0 z-50">
-          <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="/" className="text-2xl font-bold tracking-tight text-teal-600">
-              BUBONA
-            </a>
-            <nav className="flex items-center space-x-6 text-sm font-medium">
-              <a href="/shop" className="hover:text-teal-600">Shop</a>
-              <CartBadge />
-              <a href="/lookbook" className="hover:text-teal-600">Lookbook</a>
-              <a href="/about" className="hover:text-teal-600">About</a>
-              <a href="/token" className="hover:text-teal-600">Token</a>
-            </nav>
+        <header className="sticky top-0 z-50 border-b border-black/10 bg-[#f8faf9]/90 backdrop-blur-xl">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">
+            <a href="/" className="text-xl font-semibold tracking-[-0.06em] text-slate-950">BUBONA<span className="text-teal-600">.</span></a>
+            <nav className="hidden items-center gap-7 text-sm font-medium md:flex"><a href="/shop" className="transition hover:text-teal-700">Shop</a><a href="/lookbook" className="transition hover:text-teal-700">Lookbook</a><a href="/about" className="transition hover:text-teal-700">About</a><a href="/token" className="transition hover:text-teal-700">Token</a></nav>
+            <div className="flex items-center gap-4 text-sm font-medium"><CartBadge /><a href="/shop" className="rounded-full bg-slate-950 px-4 py-2 text-white transition hover:bg-teal-700">Shop now</a></div>
           </div>
         </header>
         {children}
