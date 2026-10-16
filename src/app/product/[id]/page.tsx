@@ -2,6 +2,7 @@
 
 import { notFound } from "next/navigation";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 const products: Record<string, any> = {
   "classic-tee": { name: "Classic Tee", price: 48, colors: ["Off White", "Black", "Sand"], sizes: ["S", "M", "L", "XL"], desc: "Signature B logo on premium cotton. Built Different. Bigger dreams. Higher standards.", image: "/products/classic-tee.jpg" },
@@ -76,12 +77,18 @@ export default function Product({ params }: { params: { id: string } }) {
 
           <button
             onClick={addToCart}
-            className="mt-8 w-full bg-slate-900 text-white py-4 rounded-lg font-medium hover:bg-slate-800 disabled:opacity-70"
+            className="mt-8 w-full bg-slate-900 text-white py-4 rounded-lg font-medium hover:bg-slate-800"
           >
             {added ? "Added to Cart!" : `Add to Cart — $${product.price}`}
           </button>
+
+          <div className="mt-4 flex flex-wrap gap-3 text-xs">
+            <span className="bg-slate-100 px-3 py-1 rounded-full">Pay with Solana Pay (USDC)</span>
+            <span className="bg-teal-50 text-teal-700 px-3 py-1 rounded-full">Holder discount coming soon</span>
+          </div>
+
           <p className="text-xs text-slate-400 mt-3 text-center">
-            Cart: {cartCount} item{cartCount !== 1 ? "s" : ""} • Checkout via Shopify + Solana Pay
+            Cart: {cartCount} item{cartCount !== 1 ? "s" : ""} • <Link href="/size-guide" className="underline">Size guide</Link>
           </p>
         </div>
       </div>
