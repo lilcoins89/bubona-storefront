@@ -11,28 +11,46 @@ type CartItem = {
   size: string;
 };
 
+function safeGetCart(): CartItem[] {
+  try {
+    const raw = localStorage.getItem("bubona-cart");
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+function safeSetCart(cart: CartItem[]) {
+  try {
+    localStorage.setItem("bubona-cart", JSON.stringify(cart));
+  } catch {
+    console.error("Failed to save cart");
+  }
+}
+
 export default function CartPage() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("bubona-cart") || "[]");
-    setCart(stored);
+    setCart(safeGetCart());
     setLoaded(true);
   }, []);
 
   const removeItem = (index: number) => {
     const next = cart.filter((_, i) => i !== index);
     setCart(next);
-    localStorage.setItem("bubona-cart", JSON.stringify(next));
+    safeSetCart(next);
   };
 
   const clearCart = () => {
     setCart([]);
-    localStorage.removeItem("bubona-cart");
+    try {
+      localStorage.removeItem("bubona-cart");
+    } catch {}
   };
 
-  const total = cart.reduce((sum, item) => sum + item.price, 0);
+  const total = cart.reduce((sum, item) => sum + (item.price || 0), 0);
 
   if (!loaded) {
     return <main className="max-w-3xl mx-auto px-4 py-16 text-center">Loading cart…</main>;
